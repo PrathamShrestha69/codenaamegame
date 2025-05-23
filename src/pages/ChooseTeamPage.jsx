@@ -4,7 +4,7 @@ import TeamSelectionComponent from "../components/TeamSelectionComponent";
 
 function ChooseTeamPage() {
   return (
-    <div>
+    <div className="bg-[#79AEA3] h-full">
       <NavBar />
 
       <TeamSelectionComponent team="blue" />
