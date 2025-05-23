@@ -2,25 +2,22 @@
 @plugin "daisyui";
 
 @utility btn-primary {
-    @apply border-black;
-    @apply bg-black;
-  }
-
-
-:root{
-    width: 100%;
-    height: 100%;
+  @apply border-black;
+  @apply bg-black;
+  @apply shadow-secondary;
 }
 
-#root{
-            width: 100%;
-        height: 100%;
-
+:root {
+  width: 100%;
+  height: 100%;
 }
 
+#root {
+  width: 100%;
+  height: 100%;
+}
 
-body{
-    width: 100%;
-    height: 100%;
-
+body {
+  width: 100%;
+  height: 100%;
 }
