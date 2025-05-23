@@ -10,11 +10,13 @@ function TeamSelectionComponent({ team }) {
 
   return (
     <div
-      className={`${bgColor} w-80 h-52 rounded-2xl shadow-lg p-6 flex flex-col justify-between`}
+      className={`${bgColor} w-80 h-52 rounded-2xl shadow-lg p-6 justify-between`}
     >
       <div className="text-white text-xl font-semibold text-end">-</div>
       <div className="text-white opacity-80 ">Operative(s)</div>
+      <button className="btn btn-primary ">Join as Operative</button>
       <div className="text-white opacity-80 ">Spymaster(s)</div>
+      <button className="btn btn-primary">Join as Spymaster</button>
     </div>
   );
 }
