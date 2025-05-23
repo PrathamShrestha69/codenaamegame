@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -21,7 +22,9 @@ function Home() {
           />
         </div>
 
-        <button className="btn btn-secondary mt-4 ">Play Game</button>
+        <Link to="/main-game" className="btn btn-secondary mt-4 ">
+          Play Game
+        </Link>
       </div>
     </div>
   );
