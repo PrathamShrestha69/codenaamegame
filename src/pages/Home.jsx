@@ -1,6 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigator = useNavigate();
+
+  const handleClick = () => {
+    navigator("/choose-team");
+  };
+
   return (
     <div className="bg-[#79AEA3]  h-screen w-screen flex flex-col items-center justify-center">
       <div className="bg-[#34623F] shadow-lg shadow-[#34623F] rounded-2xl 50 flex flex-col items-center p-6">
@@ -21,7 +28,9 @@ function Home() {
           />
         </div>
 
-        <button className="btn btn-secondary mt-4 ">Play Game</button>
+        <button className="btn btn-secondary mt-4 " onClick={handleClick}>
+          Play Game
+        </button>
       </div>
     </div>
   );
