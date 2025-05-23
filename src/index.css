@@ -2,10 +2,12 @@
 @plugin "daisyui";
 
 @utility btn-primary {
-  @apply border-black;
-  @apply bg-black;
-  @apply shadow-secondary;
+  @apply bg-[#B5F44A];
+  @apply text-black;
+  @apply border-white;
+  @apply rounded-full;
 }
+
 
 :root {
   width: 100%;

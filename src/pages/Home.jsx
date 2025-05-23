@@ -28,7 +28,7 @@ function Home() {
           />
         </div>
 
-        <button className="btn btn-secondary mt-4 " onClick={handleClick}>
+        <button className="btn btn-primary mt-4 " onClick={handleClick}>
           Play Game
         </button>
       </div>
