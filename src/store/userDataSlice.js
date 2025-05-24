@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  displayName: undefined,
+  displayName: "no user",
+  team: undefined,
+  role: undefined,
 };
 
 const userDataSlice = createSlice({
@@ -11,11 +13,19 @@ const userDataSlice = createSlice({
   reducers: {
     changeDisplayName: (state, action) => {
       state.displayName = action.payload;
-      console.log(state.displayName);
+    },
+
+    changeRole: (state, action) => {
+      state.role = action.payload;
+    },
+
+    changeTeam: (state, action) => {
+      state.team = action.payload;
     },
   },
 });
 
-export const { changeDisplayName } = userDataSlice.actions;
+export const { changeDisplayName, changeRole, changeTeam } =
+  userDataSlice.actions;
 
 export default userDataSlice.reducer;

@@ -13,7 +13,7 @@ function ChooseTeamPage() {
     <div className="bg-[#79AEA3] h-full px-28 ">
       <NavBar />
       <div className="flex justify-between mt-12">
-        <TeamSelectionComponent team="blue" />
+        <TeamSelectionComponent team="blue" key="blue" />
         <div className="flex flex-col items-center justify-center ">
           {/* <div className="text-xl font-bold text-black bg-gray-100 px-3 rounded-2xl py-1 ">
             Setup a Game
@@ -25,7 +25,7 @@ function ChooseTeamPage() {
             Start The Game
           </button>
         </div>
-        <TeamSelectionComponent team="red" />
+        <TeamSelectionComponent team="red" key="red" />
       </div>
     </div>
   );
