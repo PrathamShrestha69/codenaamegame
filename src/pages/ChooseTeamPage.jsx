@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import TeamSelectionComponent from "../components/TeamSelectionComponent";
-import PlayCards from "../components/PlayCards";
+import OverlappingCards from "../components/OverlappedCards";
 
 function ChooseTeamPage() {
   return (
@@ -9,7 +9,7 @@ function ChooseTeamPage() {
       <NavBar />
 
       <TeamSelectionComponent team="blue" />
-      <PlayCards />
+      <OverlappingCards />
       <TeamSelectionComponent team="red" />
     </div>
   );
