@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import PlayCards from "../components/PlayCards";
+import PlayCards from "../components/Cards/PlayCards";
 import NavBar from "../components/NavBar";
 import TeamSelectionComponent from "../components/TeamSelectionComponent";
+import OverlappingCards from "../components/OverlappedCards";
 
 function MainGamePage() {
   const [cards, setCards] = useState([]);
@@ -14,7 +15,7 @@ function MainGamePage() {
     for (let i = 1; i <= noOfRows; i++) {
       console.log(i);
       for (let j = 1; j <= noOfCols; j++) {
-        generatedCards.push(<PlayCards />);
+        generatedCards.push(<OverlappingCards />);
       }
     }
     console.log(generatedCards);
