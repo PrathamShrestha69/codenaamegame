@@ -26,11 +26,14 @@ function MainGamePage() {
     <div className="bg-[#79AEA3] h-full px-28 ">
       <NavBar />
 
-      <div className="flex justify-between mt-12">
+      <div className="flex justify-between gap-x-4 gap-y-0 ">
         <TeamSelectionComponent team="blue" />
-        <div className="flex flex-wrap gap-2 items-center justify-center ">
-          {cards.map((card) => card)}
+        <div className="grid grid-cols-5 grid-rows-5 gap-x-2 gap-y-0">
+          {cards.map((card, index) => (
+            <div key={index}>{card}</div>
+          ))}
         </div>
+
         <TeamSelectionComponent team="red" />
       </div>
     </div>
