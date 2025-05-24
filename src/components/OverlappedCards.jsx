@@ -13,7 +13,7 @@ const OverlappingCards = () => {
   };
 
   return (
-    <div className="relative w-60 h-40">
+    <div className="relative w-60 h-30">
       {/* TAla ko Card */}
       <div className="absolute top-0 left-0 z-0">
         <ColouredCards colour="red" />
