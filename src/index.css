@@ -8,6 +8,14 @@
   @apply rounded-full;
 }
 
+@utility btn-secondary {
+    @apply bg-[#34623f];
+  @apply text-white;
+  @apply border-none;
+  @apply shadow-none;
+  @apply rounded-full;
+}
+
 
 :root {
   width: 100%;
