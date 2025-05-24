@@ -1,4 +1,5 @@
 import React from "react";
+import PlayCards from "./Cards/PlayCards";
 
 function TeamSelectionComponent({ team }) {
   const bgColor =
@@ -12,6 +13,7 @@ function TeamSelectionComponent({ team }) {
     <div
       className={`${bgColor} w-80 h-52 rounded-2xl shadow-lg p-6  justify-between`}
     >
+      <div></div>
       <div className="text-white text-xl font-semibold text-end">-</div>
       <div className="text-white opacity-80 ">Operative(s)</div>
       <button className="btn btn-primary ">Join as Operative</button>

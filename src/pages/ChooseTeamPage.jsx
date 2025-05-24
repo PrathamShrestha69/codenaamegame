@@ -1,8 +1,10 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import TeamSelectionComponent from "../components/TeamSelectionComponent";
+
 import PlayCards from "../components/PlayCards";
 import { useNavigate } from "react-router-dom";
+
 
 function ChooseTeamPage() {
   const navigator = useNavigate();
@@ -14,6 +16,7 @@ function ChooseTeamPage() {
   return (
     <div className="bg-[#79AEA3] h-full px-28 ">
       <NavBar />
+
 
       <div className="flex justify-between mt-12">
         <TeamSelectionComponent team="blue" />
@@ -30,6 +33,7 @@ function ChooseTeamPage() {
         </div>
         <TeamSelectionComponent team="red" />
       </div>
+
     </div>
   );
 }
