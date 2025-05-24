@@ -1,7 +1,9 @@
 import React from "react";
 import { FaStopwatch, FaFaceLaugh, FaUser } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 function NavBar() {
+  const displayName = useSelector((state) => state.displayName);
   return (
     <div className="flex py-2 justify-between">
       <div className="flex gap-2">
@@ -13,7 +15,7 @@ function NavBar() {
         </button>
       </div>
       <button className="btn btn-secondary">
-        Username
+        {displayName}
         <FaFaceLaugh />
       </button>
     </div>

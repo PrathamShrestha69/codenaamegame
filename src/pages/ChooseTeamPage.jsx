@@ -1,9 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import TeamSelectionComponent from "../components/TeamSelectionComponent";
-import PlayCards from "../components/Cards/PlayCards.jsx";
 import { useNavigate } from "react-router-dom";
-
 function ChooseTeamPage() {
   const navigator = useNavigate();
 

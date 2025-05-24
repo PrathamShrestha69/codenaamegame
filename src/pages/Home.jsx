@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { changeDisplayName } from "../store/userDataSlice.js";
 
 function Home() {
   const navigator = useNavigate();
+  const [displayNameInput, setDisplayNameInput] = useState("");
+  const dispatch = useDispatch();
 
   const handleClick = () => {
+    //redux
+    dispatch(changeDisplayName(displayNameInput));
     navigator("/choose-team");
   };
 
@@ -16,15 +22,16 @@ function Home() {
         {/* form */}
         <div className="">
           <div className="text-start font-bold">
-            {" "}
             To Enter The Game,Choose Your Nickname:
           </div>
 
           <input
             type="text"
             name="username"
-            className="bg-white rounded-2xl px-6 py-2 w-80 text-black placeholder-gray-400 text-lg shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
+            className="bg-white rounded-2xl mt-2 px-6 py-2 w-80 text-black placeholder-gray-400 text-lg shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
             placeholder="Username"
+            value={displayNameInput}
+            onChange={(e) => setDisplayNameInput(e.target.value)}
           />
         </div>
 
