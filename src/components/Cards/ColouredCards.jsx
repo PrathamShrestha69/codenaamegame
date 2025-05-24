@@ -1,4 +1,5 @@
 import React from "react";
+import PlayCards from "./PlayCards";
 
 const ColouredCards = ({ colour }) => {
   const bgColor =
@@ -9,10 +10,14 @@ const ColouredCards = ({ colour }) => {
       : "bg-gray-200";
 
   return (
-    <div
-      className={`w-44 h-28 rounded-lg shadow-inner p-2 relative ${bgColor}`}
-    >
-      {/* Optional content inside card */}
+    <div className="relative w-36 h-24 group">
+      {/* Base Coloured Card */}
+      <div className={`w-36 h-24 rounded-lg shadow-inner p-2 ${bgColor}`}></div>
+
+      {/* Hovered PlayCard */}
+      <div className="absolute top-0 left-0 hidden group-hover:block">
+        <PlayCards name="Api" />
+      </div>
     </div>
   );
 };
