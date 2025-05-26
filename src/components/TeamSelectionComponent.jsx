@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeRole, changeTeam } from "../store/userDataSlice";
+import { getUserIdFromLs } from "../utils/UserInfoLocalStorage";
+
+const changeTeamInDB = (userUniqueID, team) => {
+  axios
+    .post("http://localhost:3000/users/registernew", {
+      team,
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+};
 
 function TeamSelectionComponent({ team }) {
+  const userUniqueID = getUserIdFromLs();
+
   const bgColor =
     team === "red"
       ? "bg-[#1E2F23]"

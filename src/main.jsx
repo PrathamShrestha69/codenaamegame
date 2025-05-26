@@ -7,19 +7,32 @@ import ChooseTeamPage from "./pages/ChooseTeamPage.jsx";
 import MainGamePage from "./pages/MainGamePage.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
+import AuthLayout from "../auth/AuthLayout.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <AuthLayout>
+        <Home />
+      </AuthLayout>
+    ),
   },
   {
     path: "/choose-team",
-    element: <ChooseTeamPage />,
+    element: (
+      <AuthLayout>
+        <ChooseTeamPage />
+      </AuthLayout>
+    ),
   },
   {
     path: "/main-game",
-    element: <MainGamePage />,
+    element: (
+      <AuthLayout>
+        <MainGamePage />
+      </AuthLayout>
+    ),
   },
 ]);
 

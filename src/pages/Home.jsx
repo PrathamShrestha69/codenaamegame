@@ -1,7 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeDisplayName } from "../store/userDataSlice.js";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import {
+  setUserIdInLs,
+  getUserIdFromLs,
+} from "../utils/UserInfoLocalStorage.js";
+
+const sendUserInfoToDB = (displayName, userUniqueID) => {
+  axios
+    .post("http://localhost:3000/users/registernew", {
+      displayName,
+      userUniqueID,
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+};
 
 function Home() {
   const navigator = useNavigate();
@@ -10,9 +26,27 @@ function Home() {
 
   const handleClick = () => {
     //redux
+    if (displayNameInput === "" || displayNameInput === " ") {
+      return;
+    }
     dispatch(changeDisplayName(displayNameInput));
+
+    //DB
+    const userUniqueID = uuidv4();
+    sendUserInfoToDB(displayNameInput, userUniqueID);
+    setUserIdInLs(userUniqueID);
+
     navigator("/choose-team");
   };
+
+  useEffect(() => {
+    const userInfoInLs = getUserIdFromLs();
+
+    if (userInfoInLs) {
+      dispatch(changeDisplayName("already logged in"));
+      navigator("/choose-team");
+    }
+  }, []);
 
   return (
     <div className="bg-[#79AEA3]  h-screen w-screen flex flex-col items-center justify-center">
