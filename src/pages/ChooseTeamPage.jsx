@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import TeamSelectionComponent from "../components/TeamSelectionComponent";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getUserIdFromLs } from "../utils/UserInfoLocalStorage";
+import axios from "axios";
+
+const changeTeamInDB = (userUniqueID, team, role) => {
+  axios
+    .post(`http://localhost:3000/users/changeuserteamandrole/${userUniqueID}`, {
+      team,
+      role,
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+};
+
 function ChooseTeamPage() {
   const navigator = useNavigate();
+  const userTeam = useSelector((state) => state.team);
+  const userRole = useSelector((state) => state.role);
 
   const handleStartBtn = () => {
+    changeTeamInDB(getUserIdFromLs, userTeam, userRole);
     navigator("/main-game");
   };
 

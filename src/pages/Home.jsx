@@ -41,11 +41,6 @@ function Home() {
 
   useEffect(() => {
     const userInfoInLs = getUserIdFromLs();
-
-    if (userInfoInLs) {
-      dispatch(changeDisplayName("already logged in"));
-      navigator("/choose-team");
-    }
   }, []);
 
   return (
