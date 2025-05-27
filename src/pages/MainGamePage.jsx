@@ -6,6 +6,8 @@ import ClueSpyMaster from "../components/ClueSpyMaster";
 
 function MainGamePage() {
   const [cards, setCards] = useState([]);
+  const [submittedClue, setSubmittedClue] = useState("");
+  const [submittedNumber, setSubmittedNumber] = useState("");
 
   useEffect(() => {
     const noOfRows = 5;
@@ -13,30 +15,49 @@ function MainGamePage() {
     const generatedCards = [];
 
     for (let i = 1; i <= noOfRows; i++) {
-      console.log(i);
       for (let j = 1; j <= noOfCols; j++) {
         generatedCards.push(<OverlappingCards />);
       }
     }
-    console.log(generatedCards);
     setCards(generatedCards);
   }, []);
 
-  return (
-    <div className="bg-[#79AEA3]  px-28 ">
-      <NavBar />
+  const handleClueSubmit = (clue, number) => {
+    setSubmittedClue(clue);
+    setSubmittedNumber(number);
 
-      <div className="flex justify-between gap-x-4 gap-y-0 ">
+    // Optional: clear after 5 seconds
+    setTimeout(() => {
+      setSubmittedClue("");
+      setSubmittedNumber("");
+    }, 5000);
+  };
+
+  return (
+    <div className="bg-[#79AEA3] px-28">
+      <NavBar />
+      <div className="flex justify-between gap-x-4 gap-y-0">
         <TeamSelectionComponent team="blue" />
-        <div className="flex flex-col justify-center items-center">
-          <div className="grid grid-cols-5 grid-rows-5 gap-x-2 gap-y-0 ">
+        <div className="flex flex-col justify-center items-center gap-x-4 ">
+          <div className="grid grid-cols-5 grid-rows-5 gap-y-0">
             {cards.map((card, index) => (
               <div key={index}>{card}</div>
             ))}
           </div>
-          <div className="gap-y-3">
-            <ClueSpyMaster />
-          </div>
+
+          {/* Show clue below the board */}
+          {submittedClue && (
+            <div className="bg-green-100 p-4 rounded-xl text-black shadow-inner text-center gap-y-0">
+              <p>
+                <strong>Clue:</strong> {submittedClue}
+              </p>
+              <p>
+                <strong>Number:</strong> {submittedNumber}
+              </p>
+            </div>
+          )}
+
+          <ClueSpyMaster onClueSubmit={handleClueSubmit} />
         </div>
         <TeamSelectionComponent team="red" />
       </div>
