@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { io } from "socket.io-client";
+
+const socketInstance = null;
 
 const initialState = {
   displayName: "no user",
