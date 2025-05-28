@@ -32,7 +32,6 @@ function AuthLayout({ children }) {
           userInfoFromDb != ""
         ) {
           dispatch(changeDisplayName(userInfoFromDb.displayName));
-          console.log(locate.pathname);
 
           //If in home and username and team and role is registered in db and ls
           if (
