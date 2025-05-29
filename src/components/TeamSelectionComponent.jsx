@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeRole, changeTeam } from "../store/userDataSlice";
 import { getUserIdFromLs } from "../utils/UserInfoLocalStorage";
 
-function TeamSelectionComponent({ team }) {
+function TeamSelectionComponent({ team, socketInstance }) {
   const bgColor =
     team === "red"
       ? "bg-[#1E2F23]"
@@ -26,7 +26,6 @@ function TeamSelectionComponent({ team }) {
 
   const handleClick = (userChoice) => {
     team === "red" ? disptach(changeTeam("red")) : disptach(changeTeam("blue"));
-
     if (userChoice === "operative") {
       disptach(changeRole("operative"));
       setSelected("operative");
@@ -34,11 +33,23 @@ function TeamSelectionComponent({ team }) {
       disptach(changeRole("spymaster"));
       setSelected("spymaster");
     }
+
+    if (socketInstance) {
+      socketInstance.emit("change-team-role", {
+        team,
+        role: userRole,
+        displayName,
+      });
+    }
   };
 
   useEffect(() => {
-    console.log(userTeam, team);
-  }, [userTeam, userRole]);
+    if (socketInstance) {
+      socketInstance.on("other-team-role-change", (infoObj) =>
+        console.log(infoObj)
+      );
+    }
+  }, [socketInstance]);
 
   return (
     <div

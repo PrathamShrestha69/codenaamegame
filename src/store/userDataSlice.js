@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { io } from "socket.io-client";
 
-const socketInstance = null;
+let socketInstance = null;
 
 const initialState = {
   displayName: "no user",
   team: undefined,
   role: undefined,
+  isSocketConnected: false,
 };
 
 const userDataSlice = createSlice({
@@ -25,10 +26,32 @@ const userDataSlice = createSlice({
     changeTeam: (state, action) => {
       state.team = action.payload;
     },
+
+    connectSocket: (state) => {
+      if (!socketInstance) {
+        socketInstance = io("http://localhost:3000");
+        state.isSocketConnected = true;
+      }
+    },
+
+    disconnectSocket: (state) => {
+      if (socketInstance) {
+        socketInstance.disconnect();
+        socketInstance = null;
+        state.isSocketConnected = false;
+      }
+    },
   },
 });
 
-export const { changeDisplayName, changeRole, changeTeam } =
-  userDataSlice.actions;
+export const {
+  changeDisplayName,
+  changeRole,
+  changeTeam,
+  connectSocket,
+  disconnectSocket,
+} = userDataSlice.actions;
+
+export const getSocketInstance = () => socketInstance;
 
 export default userDataSlice.reducer;
