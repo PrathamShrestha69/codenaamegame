@@ -24,6 +24,7 @@ const createRoomInDb = async (roomName, adminUserId) => {
     `${import.meta.env.VITE_APP_BACKEND_URL}/games/${roomName}`,
     { adminUserId }
   );
+
   return res.data;
 };
 
@@ -48,9 +49,23 @@ const generateRandomCodeAndTestInDB = async () => {
 
 const changeTeamInDB = (userUniqueID, team, role) => {
   axios
-    .post(`http://localhost:3000/users/changeuserteamandrole/${userUniqueID}`, {
-      team,
-      role,
+    .patch(
+      `http://localhost:3000/users/changeuserteamandrole/${userUniqueID}`,
+      {
+        team,
+        role,
+      }
+    )
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+};
+
+const changeCurrentUserRoomInDb = (userUniqueID, roomId) => {
+  console.log(userUniqueID);
+  console.log(roomId);
+  axios
+    .patch(`http://localhost:3000/users/changecurrentroom/${userUniqueID}`, {
+      roomId,
     })
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
@@ -66,11 +81,10 @@ function ChooseTeamPage() {
 
   const [currentRoomCode, setCurrentRoomCode] = useState(null);
 
-  const roomCodePassedInparams = useParams().roomid;
+  const roomCodePassedInparams = useParams().roomid.toUpperCase();
   const [isRoomOwner, setisRoomOwner] = useState(false);
 
   const handleStartBtn = () => {
-    changeTeamInDB(getUserIdFromLs(), userTeam, userRole);
     navigator("/main-game");
   };
 
@@ -116,6 +130,8 @@ function ChooseTeamPage() {
       fetchAndCreateRoom();
     } else {
       createRoomIfNotExist(roomCodePassedInparams);
+      console.log(roomCodePassedInparams);
+      changeCurrentUserRoomInDb(getUserIdFromLs(), roomCodePassedInparams);
       setCurrentRoomCode(roomCodePassedInparams);
     }
   }, [roomCodePassedInparams]);
