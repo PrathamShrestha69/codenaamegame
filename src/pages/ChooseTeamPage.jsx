@@ -67,6 +67,7 @@ function ChooseTeamPage() {
   const [currentRoomCode, setCurrentRoomCode] = useState(null);
 
   const roomCodePassedInparams = useParams().roomid;
+  const [isRoomOwner, setisRoomOwner] = useState(false);
 
   const handleStartBtn = () => {
     changeTeamInDB(getUserIdFromLs(), userTeam, userRole);
@@ -102,6 +103,10 @@ function ChooseTeamPage() {
 
       if (roomInfo) {
         console.log(roomInfo);
+
+        if (roomInfo.adminUser.userUniqueID === getUserIdFromLs()) {
+          setisRoomOwner(true);
+        }
       } else {
         createRoomInDb(roomCode.toUpperCase(), getUserIdFromLs());
       }
@@ -122,12 +127,14 @@ function ChooseTeamPage() {
         <TeamSelectionComponent team="blue" socketInstance={socketInstance} />
         <div className="flex flex-col items-center justify-center gap-3">
           <RoomCodeInput initialRoomCode={currentRoomCode} />
-          <button
-            className="btn btn-primary text-xl font-bold"
-            onClick={handleStartBtn}
-          >
-            Start The Game
-          </button>
+          {isRoomOwner && (
+            <button
+              className="btn btn-primary text-xl font-bold"
+              onClick={handleStartBtn}
+            >
+              Start The Game
+            </button>
+          )}
         </div>
         <TeamSelectionComponent team="red" socketInstance={socketInstance} />
       </div>
