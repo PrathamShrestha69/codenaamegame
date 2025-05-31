@@ -1,44 +1,44 @@
-import React from "react";
-import { useRef, useState } from "react";
-import { useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 function RoomCodeInput({ initialRoomCode = "" }) {
   const roomInputRef = useRef(null);
   const [changedRoomInput, setChangedRoomInput] = useState(false);
-  const navigator = useNavigate();
-
-  console.log(initialRoomCode);
+  const navigate = useNavigate();
 
   const handleCopy = () => {
     const input = roomInputRef.current;
 
     input.select();
     input.setSelectionRange(0, input.value.length);
-    navigator.clipboard
-      .writeText(input.value)
-      .then(() => {
-        console.log("Copied to clipboard!");
-      })
-      .catch((err) => {
-        console.error("Failed to copy: ", err);
-      });
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(input.value)
+        .then(() => {
+          console.log("Copied to clipboard!");
+        })
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+        });
+    } else {
+      try {
+        document.execCommand("copy");
+        console.log("Copied with execCommand fallback!");
+      } catch (err) {
+        console.error("Copy fallback failed:", err);
+      }
+    }
   };
 
   const handleRoomChange = () => {
-    navigator(`/choose-team/${roomInputRef.current.value}`, { replace: true });
-
-    // const roomJoinedStat = socket.current.emit(
-    //   "join-room",
-    //   roomInputRef.current.value,
-    //   displayName
-    // );
+    navigate(`/choose-team/${roomInputRef.current.value}`, { replace: true });
     setChangedRoomInput(false);
   };
 
   useEffect(() => {
     roomInputRef.current.value = initialRoomCode;
-  });
+  }, [initialRoomCode]);
 
   return (
     <div className="h-20 flex items-center justify-end gap-2 flex-col">
@@ -60,7 +60,7 @@ function RoomCodeInput({ initialRoomCode = "" }) {
         ref={roomInputRef}
       />
       <button
-        className="btn btn-secondary "
+        className="btn btn-secondary"
         onClick={changedRoomInput ? handleRoomChange : handleCopy}
       >
         {changedRoomInput ? "Go To Room" : "Copy Code"}
