@@ -7,6 +7,7 @@ const initialState = {
   displayName: "no user",
   team: undefined,
   role: undefined,
+  numberOfPlayer: 1,
   isSocketConnected: false,
 };
 
@@ -25,6 +26,10 @@ const userDataSlice = createSlice({
 
     changeTeam: (state, action) => {
       state.team = action.payload;
+    },
+
+    changeNumberOfTeam: (state, action) => {
+      state.numberOfPlayer = action.payload;
     },
 
     connectSocket: (state) => {
@@ -49,6 +54,7 @@ export const {
   changeRole,
   changeTeam,
   connectSocket,
+  changeNumberOfTeam,
   disconnectSocket,
 } = userDataSlice.actions;
 

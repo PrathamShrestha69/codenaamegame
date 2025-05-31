@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserIdFromLs } from "../utils/UserInfoLocalStorage";
 import axios from "axios";
 import {
+  changeNumberOfTeam,
   connectSocket,
   disconnectSocket,
   getSocketInstance,
@@ -61,8 +62,6 @@ const changeTeamInDB = (userUniqueID, team, role) => {
 };
 
 const changeCurrentUserRoomInDb = (userUniqueID, roomId) => {
-  console.log(userUniqueID);
-  console.log(roomId);
   axios
     .patch(`http://localhost:3000/users/changecurrentroom/${userUniqueID}`, {
       roomId,
@@ -82,24 +81,12 @@ function ChooseTeamPage() {
   const [currentRoomCode, setCurrentRoomCode] = useState(null);
 
   const roomCodePassedInparams = useParams().roomId;
+
   const [isRoomOwner, setisRoomOwner] = useState(false);
 
   const handleStartBtn = () => {
     navigator("/main-game");
   };
-
-  useEffect(() => {
-    dispatch(connectSocket());
-    setSocketInstance(getSocketInstance());
-
-    if (socketInstance) {
-      console.log("connection sucessfull");
-    }
-
-    return () => {
-      dispatch(disconnectSocket());
-    };
-  }, []);
 
   //For Room
   useEffect(() => {
@@ -116,8 +103,6 @@ function ChooseTeamPage() {
       const roomInfo = await getRoomInfo(roomCode.toUpperCase());
 
       if (roomInfo) {
-        console.log(roomInfo);
-
         if (roomInfo.adminUser.userUniqueID === getUserIdFromLs()) {
           setisRoomOwner(true);
         }
@@ -135,6 +120,40 @@ function ChooseTeamPage() {
       setCurrentRoomCode(roomCodePassedInparams);
     }
   }, [roomCodePassedInparams]);
+
+  useEffect(() => {
+    dispatch(connectSocket());
+    const socket = getSocketInstance();
+    setSocketInstance(socket);
+
+    // Optional: handle events here
+    socket.on("connect", () => {
+      console.log("✅ Socket connected:", socket.id);
+    });
+
+    socket.on("user-num-change", ({ noOfUser }) => {
+      dispatch(changeNumberOfTeam(noOfUser));
+    });
+
+    socket.on("disconnect", () => {
+      console.log("❌ Socket disconnected");
+    });
+
+    return () => {
+      dispatch(disconnectSocket());
+      socket.disconnect(); // cleanup on unmount
+    };
+  }, []); // runs once on component mount
+
+  useEffect(() => {
+    if (socketInstance && currentRoomCode) {
+      socketInstance.emit("join-room", {
+        userId: getUserIdFromLs(),
+        roomCode: currentRoomCode,
+      });
+      console.log("📡 Joined room:", currentRoomCode);
+    }
+  }, [socketInstance, currentRoomCode]); // runs when either becomes available
 
   return (
     <div className="bg-[#79AEA3] h-full px-28 ">
