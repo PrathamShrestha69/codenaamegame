@@ -81,7 +81,7 @@ function ChooseTeamPage() {
 
   const [currentRoomCode, setCurrentRoomCode] = useState(null);
 
-  const roomCodePassedInparams = useParams().roomid.toUpperCase();
+  const roomCodePassedInparams = useParams().roomId;
   const [isRoomOwner, setisRoomOwner] = useState(false);
 
   const handleStartBtn = () => {
