@@ -95,6 +95,7 @@ function ChooseTeamPage() {
       setCurrentRoomCode(randomlyGeneratedRoomCode);
 
       // createRoomInDb(randomlyGeneratedRoomCode, getUserIdFromLs());
+      //const change test
 
       navigator(`/choose-team/${randomlyGeneratedRoomCode}`, { replace: true });
     };
