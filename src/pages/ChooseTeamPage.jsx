@@ -80,7 +80,7 @@ function ChooseTeamPage() {
 
   const [currentRoomCode, setCurrentRoomCode] = useState(null);
 
-  const roomCodePassedInparams = useParams().roomId;
+  const roomCodePassedInparams = useParams().roomid;
 
   const [isRoomOwner, setisRoomOwner] = useState(false);
 
@@ -93,9 +93,6 @@ function ChooseTeamPage() {
     const fetchAndCreateRoom = async () => {
       const randomlyGeneratedRoomCode = await generateRandomCodeAndTestInDB();
       setCurrentRoomCode(randomlyGeneratedRoomCode);
-
-      // createRoomInDb(randomlyGeneratedRoomCode, getUserIdFromLs());
-      //const change test
 
       navigator(`/choose-team/${randomlyGeneratedRoomCode}`, { replace: true });
     };
@@ -113,6 +110,7 @@ function ChooseTeamPage() {
     };
 
     if (!roomCodePassedInparams) {
+      console.log(roomCodePassedInparams);
       fetchAndCreateRoom();
     } else {
       createRoomIfNotExist(roomCodePassedInparams);
